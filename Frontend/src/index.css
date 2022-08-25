@@ -6,10 +6,13 @@
 body{
     background-color: #FAFAFA;
 }
+a{
+    text-decoration: none;
+}
 nav{
     background-color: #FFFFFF;
 }
-.instegramlogo > svg{
+.instegramlogo > a{
     margin-right: 10px;
     /* cursor: pointer; */
 }
@@ -17,27 +20,34 @@ nav{
     color: #777;
 }
 .searchbar{
-    max-width: 300px;
+    max-width: 270px;
     background-color: #EFEFEF;
     border-radius: 10px;
     border: none;
     padding: 8px 10px;
     margin-left: auto;
+    margin-right: -11rem;
+    height: 2.6rem;
 }
 .searchbar:focus{
     background-color: #EFEFEF;
 }
 .icons{
-    margin-left: auto;
+    padding-top: .9rem;
 }
-.icons > svg{
+.icons > svg {
     margin: 5px 10px;
 }
-/* .profileicon{
-    border-radius: 50%;
-    border: 1px solid #000;
-} */
-
+.icons > div {
+    
+    margin-top: -.2rem;
+}
+.dropdown-toggle::after {
+    display: none !important; 
+  }
+  .dropdown-toggle{
+    padding-top: 0;
+  }
 .form-control:focus {
     border-color: inherit;
     -webkit-box-shadow: none;
@@ -80,10 +90,7 @@ button:focus {
 .storyiconspan{
     width: 15%;
     height: 76%;
-    /* border: 1px solid #777; */
-    /* border-radius: 50%; */
-    /* overflow: hidden; */
-    /* clip-path: circle(); */
+
 }
 .storyicon{
     height: 90%;
@@ -92,18 +99,19 @@ button:focus {
 .suggest{
     padding-left: 20px;
     min-height: 20px;
-    /* max-width: 70%; */
 }
 
 .Suggestionicon{
     height: 100%;
     clip-path: circle();
 }
+.profileheadericon{
+    width: 2.1rem;
+    clip-path: circle();
+}
 .profileiconspan{
     width: 10%;
     height: 76%;
-    /* border: 1px solid #777; */
-    /* border-radius: 50%; */
     overflow: hidden;
     clip-path: circle();
 }
@@ -111,7 +119,6 @@ button:focus {
     width: 100%;
     height: 100%;
     clip-path: circle();
-
 }
 .postimg{
     width: 100%;
@@ -143,4 +150,70 @@ hr{
 .postbtn{
     padding-top: 0;
     color: #86c2e9;
+}
+.footer{
+    font-size: 12px;
+}
+.imagediv{
+    max-width: 50%;
+}
+.instapic{
+    /* height:50rem; */
+    width: 90%;
+    margin-left: auto;
+    margin-top: 8rem;
+}
+.signinform{
+    max-width: 25rem;
+    background-color: #FFFFFF;
+    margin-top: 8rem;
+}
+.inputs{
+    padding: .8rem 1rem;
+    background-color: #FAFAFA;
+}
+.inputs:focus{
+    background-color: #FAFAFA;
+}
+.inputs button{
+    background-color: #0095F6;
+}
+.instalogo >SVG{
+    width: 75%;
+    height: 50px;
+}
+.privacygtext{
+    font-size: 12px;
+}
+.profilepage{
+    margin-top: 6rem;
+    margin-bottom: 10rem;
+}
+.profilepageicon{
+    width: 12rem;
+    clip-path: circle();
+}
+@media (min-width: 1200px) {
+    .profilepage{
+        max-width: 750px;
+    }
+}
+.profilesnipped a > svg{
+    margin-top: .4rem;
+}
+.savedicon > svg{
+    height: 1.1rem;
+}
+.snippes{
+    color: #777;
+}
+.snippes:hover{
+    color: #000;
+}
+.addposticon{
+    width: 20%;
+    height: 20%;
+}
+.addposbtn{
+    width: 20%;
 }

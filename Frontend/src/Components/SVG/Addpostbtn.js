@@ -1,6 +1,6 @@
 import React from "react";
 
-const Addpost = () => {
+const Addpostbtn = () => {
   return (
     <svg
       className="icon"
@@ -47,4 +47,4 @@ const Addpost = () => {
   );
 };
 
-export default Addpost;
+export default Addpostbtn;

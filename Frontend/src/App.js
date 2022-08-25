@@ -1,36 +1,27 @@
 import './index.css';
-import Header from './Components/header';
-import Posts from './Components/Posts';
-import Stories from './Components/Stories';
-import Suggetions from './Components/Suggetions';
-import { useState } from 'react';
-import {BrowserRouter as Router,Routes,Switch} from "react-router-dom"
+import Header from './Components/Layouts/Header';
+import Home from './Screens/Home';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Profile from './Screens/Profile';
+import Footer from './Components/Layouts/Footer';
+import SignIn from './Screens/SignIn';
+import Signup from './Screens/Signup';
 
 function App() {
-  // let name = "ahmed";
-  // let [name, setName] = useState('hello Abdo');
-
-  // let btnhandler = () => {
-  //   setName('Hello yastaaaaaaaaa');
-  //   console.log(name);
-  //   console.log('3bdo');
-  // };
 
   return (
-    <div className="App">
-      <Header />
-      <div className="container">
-        <div className="main row ">
-          <Stories />
-          <Suggetions />
-        </div>
-        <Posts />
-        {/* <p>{name}</p>
-        <button className="btn btn-warning" onClick={btnhandler}>
-          Click ME
-        </button> */}
+    <Router>
+      <div className="App">
+        <Header />
+          <Routes>
+            <Route path='/' exact element={<Home />}></Route>
+            <Route path='/profile' element={<Profile />}></Route>
+            <Route path='/signin' element={<SignIn />}></Route>
+            <Route path='/signup' element={<Signup />}></Route>
+          </Routes>
+          <Footer />
       </div>
-    </div>
+    </Router>
   );
 }
 

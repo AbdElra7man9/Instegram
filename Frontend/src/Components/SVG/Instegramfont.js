@@ -11,6 +11,7 @@ const Instegramfont = () => {
       role="img"
       viewBox="32 4 113 32"
       width="103"
+      className="instalogo"
     >
       <path
         clip-rule="evenodd"
