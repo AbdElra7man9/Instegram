@@ -3,7 +3,9 @@ import bcrypt from 'bcrypt';
 import bodyParser from "body-parser";
 import passport from 'passport';
 import Users from '../models/Users.js';
+import {ensureAuthenticated,forwardAuthenticated,admin} from '../config/Auth.js'
 const routeuser = express.Router();
+
 routeuser.post('/signup', (req, res) => {
     const { email, password, fullname, username } = req.body;
     let errors = [];
@@ -38,21 +40,29 @@ routeuser.post('/signup', (req, res) => {
         })
 })
 
-routeuser.post('/signin', (req, res, next) => {
-    passport.authenticate('local', {
-      successRedirect: '/',
-      failureRedirect: '/SignIn',
-      failureFlash: true
-      
+
+routeuser.post("/api/auth", (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+      if (err) throw err;
+      if (!user) {
+        res.send("invalid password or username");
+      }
+      else {
+        req.logIn(user, (err) => {
+          if (err) throw err;
+          res.send("Successfully Authenticated");
+
+          console.log(req.user);
+        });
+      }
     })(req, res, next);
-    // return res.status(422).json({error:"invailed username or password"})
-  
   });
   
+
   // Logout
   routeuser.get('/logout', (req, res) => {
     req.logout();
-    req.flash('success_msg', 'You are logged out');
+    // req.flash('success_msg', 'You are logged out');
     res.redirect('SignIn');
   });
 export default routeuser;

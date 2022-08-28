@@ -12,19 +12,22 @@ const localStrategy  = () => {
       Users.findOne({ email: email }) 
         .then(user => {
           if (!user) {
-            // return res.status(422).json({error:"That email is not registered"});
-
-            return done(null, false, { message: 'That email is not registered' });
+            //  res.status(422).json({error:"That email is not registered"});
+            return done(null, false)
+            //  return done(null, false, { errors: { 'email or password': 'is invalid' } });
           }
 
           // Match password
           bcrypt.compare(password, user.password, (err, isMatch) => {
-            //   if (err) throw err;
+            if (err) {
+              return done(err)
+            }
             if (isMatch) {
               return done(null, user);
             } else {
-                // return res.status(422).json({error:"Password incorrect"});
-              return done(null, false, { message: 'Password incorrect' });
+              // return done(null, false)
+                //  res.status(422).json({error:"Password incorrect"});
+                return done(null, false);
             }
           });
         });
