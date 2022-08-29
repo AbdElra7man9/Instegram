@@ -4,7 +4,7 @@ const Profileposts = () => {
   return (
     <div className='profilepage'>
       <button className='btn addposbtn'>
-      <img className='addposticon' src="./Images/addpost.webp" alt='addpost'></img>
+      <img className='addposticon' src="" alt='addpost'></img>
       </button>
     </div>
   )

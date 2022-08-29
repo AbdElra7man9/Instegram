@@ -1,30 +1,97 @@
 import React, { useState } from 'react';
-import Instegramfont from '../Components/SVG/Instegramfont';
-import { Link, useNavigate } from "react-router-dom";
+import Instegramfont from '../Components/SVG/Instegramfont';// eslint-disable-next-line
+import { Link, useNavigate, useEffect } from "react-router-dom";// eslint-disable-next-line
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';// eslint-disable-next-line
 import axios from 'axios';
+import host from '../axiosHost';
 
 const Signup = () => {
-    const {data,setData}=useState({
-        email:"",
-        username:"",
-        fullname:"",
-        password:""
-    })
-    const handleSubmit =(event) => {
-        event.preventResult();
-        alert("hgfgghj")
-    }
+    const navigate = useNavigate();
+    const toastOptions = {
+        position: "bottom-right",
+        autoClose: 8000,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "dark",
+    };
+    const [values, setValues] = useState({
+        username: "",
+        email: "",
+        password: "",
+        fullname: "",
+    });
+
+    // useEffect(() => {
+    //     if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+    //         navigate("/");
+    //     }
+    // }, []);
+
     const handleChange = (event) => {
-        setData({...data,[event.target.name]:event.target.value});
-    }
-    
+        setValues({ ...values, [event.target.name]: event.target.value });
+    };
+
+    const handleValidation = () => {
+        const { password, fullname, username, email } = values;
+        if (!email || !password || !fullname || !username) {
+            toast.error(
+                "Please Fill All Inputes.",
+                toastOptions
+            );
+            return false;
+        } else if (username.length < 3) {
+            toast.error(
+                "Username should be greater than 3 characters.",
+                toastOptions
+            );
+            return false;
+
+        }
+        else if (password.length < 8) {
+            toast.error(
+                "Password should be equal or greater than 8 characters.",
+                toastOptions
+            );
+            return false;
+        } else if (email === "") {
+            toast.error("Email is required.", toastOptions);
+            return false;
+        } else if (fullname === "") {
+            toast.error("fullname is required.", toastOptions);
+            return false;
+        }
+        return true;
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (handleValidation()) {
+            const { email, username, password, fullname } = values;
+            const { data } = await axios.post(`${host}/api/auth/signup`, {
+                username,
+                email,
+                password,
+                fullname
+            });
+
+            if (data.status === false) {
+                toast.error(data.msg, toastOptions);
+            }
+            if (data.status === true) {
+                localStorage.setItem(
+                    'hello'
+                    , JSON.stringify(data.user)
+                );
+                navigate("/");
+            }
+        }
+    };
+
     return (
         <div>
-
             <div className='container py-5 pb-4 px-5 signinform border'>
-                <form onSubmit={(event) => handleSubmit (event)}>
+                <form action="" onSubmit={(event) => handleSubmit(event)}>
                     <div className=" text-center  ">
                         <Link to="/"><p className="instalogo fw-bold"><Instegramfont /></p></Link>
                         <p className='text-muted fs-6 fw-bold'>Sign up to see photos and videos from your friends.</p>
@@ -35,21 +102,22 @@ const Signup = () => {
                             <input className="form-control inputs m-auto mt-2" type="email" reaquired placeholder='Mobile Number Or Email' name="email"
                                 onChange={(e) => handleChange(e)}></input>
                             <input className="form-control inputs m-auto mt-2" type="text" reaquired placeholder='Full Name' name="fullname"
-                                 onChange={(e) => handleChange(e)}></input>
+                                onChange={(e) => handleChange(e)}></input>
                             <input className="form-control inputs m-auto mt-2" type="text" reaquired placeholder='Username' name="username"
-                                 onChange={(e) => handleChange(e)}></input>
+                                onChange={(e) => handleChange(e)}></input>
                             <input className="form-control inputs m-auto mt-2" type="password" reaquired placeholder='Password' name="password"
-                                 onChange={(e) => handleChange(e)}></input>
+                                onChange={(e) => handleChange(e)}></input>
                         </div>
                         <p className='text-muted privacygtext'>People who use our service may have uploaded your contact information to Instagram. Learn<Link to='/learnmore' className='text-muted fw-bold'> More</Link></p>
                         <p className='text-muted privacygtext'>By signing up, you agree to our Terms ,<Link to='/learnmore' className='text-muted fw-bold'>Privacy Policy </Link> and <Link to='/learnmore' className='text-muted fw-bold'> Cookies Policy .</Link></p>
-                        <button className="btn btn-primary form-control">Sign Up</button>
+                        <button className="btn btn-primary form-control" type='submit'>Sign Up</button>
                     </div>
                 </form>
             </div>
             <div className='container py-4 px-5 mt-3 signinform border text-center'>
                 <p className='mb-0'>Have an account? <Link to='/signin'>Log In</Link></p>
             </div>
+            <ToastContainer />
         </div>
     );
 };

@@ -9,8 +9,8 @@ const Header = () => {
           <div className="d-flex">
             <Link className="mt-4" to="/">
               <Instegramfont />
-              <Link to="/" className="ms-2"><Arrowdown /></Link>
             </Link>
+            <Link to="/" className="ms-2 mt-4"><Arrowdown /></Link>
             <input
               className="form-control d-md-block d-none searchbar  mt-3"
               type="search"

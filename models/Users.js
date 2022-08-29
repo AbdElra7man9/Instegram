@@ -21,6 +21,7 @@ const usesrSchema = new mongoose.Schema(
       type: String,
       required: true,
       min: 6,
+      select:false
     },
     profilePic:{
       type:String,
@@ -35,6 +36,8 @@ const usesrSchema = new mongoose.Schema(
       default:[]
     },
     isAdmin: { type: Boolean, default: false, required: true },
+    resetPasswordToken:String,
+    resetPasswordExpire: Date
   },
   { timestamps: true }
 );
