@@ -5,9 +5,13 @@ const usesrSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      min: 3,
+      max:50
     },
     username: {
       type: String,
+      min: 3,
+      max:20
     },
     fullname: {
       type: String,
@@ -16,6 +20,19 @@ const usesrSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+      min: 6,
+    },
+    profilePic:{
+      type:String,
+      default:""
+    },
+    followers:{
+      type:Array,
+      default:[]
+    },
+    following:{
+      type:Array,
+      default:[]
     },
     isAdmin: { type: Boolean, default: false, required: true },
   },

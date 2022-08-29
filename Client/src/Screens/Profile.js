@@ -1,9 +1,7 @@
 import React from 'react'
-import {Sitting,Postsicon,Savebtn,Tagged} from '../Components/Exports';
-
+import {Sitting,Postsicon,Savebtn,Tagged,Profileposts} from '../Components/Exports';
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import Profileposts from '../Components/Layouts/Profileposts';
 import { Link } from "react-router-dom";
 
 

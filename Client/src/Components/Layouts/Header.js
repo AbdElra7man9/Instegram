@@ -1,12 +1,4 @@
-// import{Arrowdown,Heart,Instegramfont,Story,Message,Home,Addpostbtn} from '../Exports';
-// import{Instegramfont,Heart,Home,Message,Story,Addpostbtn,Arrowdown} from '../Exports';
-import Instegramfont from "../SVG/Instegramfont";
-import Heart from "../SVG/Heart";
-import Home from "../SVG/Home";
-import Message from "../SVG/Message";
-import Story from "../SVG/Story";
-import Addpostbtn from "../SVG/Addpostbtn";
-import Arrowdown from "../SVG/Arrowdown";
+import{Instegramfont,Heart,HomeIcon,Message,Story,Addpostbtn,Arrowdown} from '../Exports';
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 const Header = () => {
@@ -24,7 +16,7 @@ const Header = () => {
               type="search"
               placeholder="Searing"></input>
             <div className="mt-2 ms-auto icons d-flex ">
-              <Link to="/" className="ms-4"><Home /></Link>
+              <Link to="/" className="ms-4"><HomeIcon /></Link>
               <Link to="/" className="ms-4"><Message /></Link>
               <Link to="/" className="ms-4"><Addpostbtn /></Link>
               <Link to="/" className="ms-4"><Story /></Link>
