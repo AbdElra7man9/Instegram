@@ -3,7 +3,7 @@ import { Morebtn, Heart, Comments, Share, Savebtn, Emoji } from '../Exports';
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import PostSkeleton from '../SKeletons/PostSkeleton';
+// import PostSkeleton from '../SKeletons/PostSkeleton';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 

@@ -25,3 +25,6 @@ export {default as Profile} from '../Screens/Profile';
 export {default as Signup} from '../Screens/Signup';
 export {default as SignIn} from '../Screens/SignIn';
 export {default as Home} from '../Screens/Home';
+export {default as ForgotPassword} from '../Screens/ForgotPassword';
+export {default as EmailSent} from '../Screens/EmailSent';
+export {default as ResetPassword} from '../Screens/ResetPassword';

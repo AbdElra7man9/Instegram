@@ -1,7 +1,12 @@
 import{Instegramfont,Heart,HomeIcon,Message,Story,Addpostbtn,Arrowdown} from '../Exports';
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 const Header = () => {
+  const Navigate = useNavigate();
+  const logout =() => {
+    localStorage.removeItem("authToken");
+    Navigate('/signin');
+  } 
   return (
     <nav className="navbar navbar-light border-bottom fixed-top py-0">
       <div className="container-fluid ">
@@ -19,7 +24,7 @@ const Header = () => {
               <Link to="/" className="ms-4"><HomeIcon /></Link>
               <Link to="/signin" className="ms-4"><Message /></Link>
               <Link to="/signup" className="ms-4"><Addpostbtn /></Link>
-              <Link to="/" className="ms-4"><Story /></Link>
+              <Link to="/logout" className="ms-4"><Story /></Link>
               <Link to="/" className="ms-4"><Heart /></Link>
               <div className="ms-3 pt-0">
                 <Dropdown>
@@ -33,7 +38,7 @@ const Header = () => {
                     <Link to="/sitting" className="d-block me-2 py-2 text-dark ">Sitting</Link>
                     <Link to="/switch" className="d-block me-2 py-2 text-dark ">Switch Acoount</Link>
                     <Dropdown.Divider />
-                    <Link to="/logout" className="d-block me-2 py-2 text-dark ">Log Out</Link>
+                    <button onClick={logout} className="d-block btn ms-auto me-2 py-2 text-dark ">Log Out</button>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>

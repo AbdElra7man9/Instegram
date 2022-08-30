@@ -40,12 +40,13 @@ export const login = async (req, res, next) => {
             return next(new ErrorResponse("Invalid credentials", 401));
         }
         sendToken(user, 200, res);
+        console.log(user)
     } catch (error) {
         next(error);
     }
 };
 
-export const forgetpassword = async (req, res, next) => {
+export const forgotpassword = async (req, res, next) => {
     // Send Email to email provided but first check if user exists
   const { email } = req.body;
 
@@ -129,5 +130,5 @@ try {
 }
 const sendToken = (user, statusCode, res) => {
     const token = user.getSignedJwtToken();
-    res.status(statusCode).json({ sucess: true, token });
+    res.status(statusCode).json({ sucess: true, token,user });
 };
