@@ -17,8 +17,8 @@ const Header = () => {
               placeholder="Searing"></input>
             <div className="mt-2 ms-auto icons d-flex ">
               <Link to="/" className="ms-4"><HomeIcon /></Link>
-              <Link to="/" className="ms-4"><Message /></Link>
-              <Link to="/" className="ms-4"><Addpostbtn /></Link>
+              <Link to="/signin" className="ms-4"><Message /></Link>
+              <Link to="/signup" className="ms-4"><Addpostbtn /></Link>
               <Link to="/" className="ms-4"><Story /></Link>
               <Link to="/" className="ms-4"><Heart /></Link>
               <div className="ms-3 pt-0">

@@ -3,24 +3,30 @@ import Instegramfont from '../Components/SVG/Instegramfont';
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 const SignIn = () => {
-  const [data, setData] = useState({ email: "", password: "" }); 
-
+  const [values, setValues] = useState({ email: "", password: "" }); 
+  const [error, setError] = useState("");
   const handleChange = ({ currentTarget: input }) => {
-    setData({ ...data, [input.name]: input.value });
+    setValues({ ...values, [input.name]: input.value });
   };
+ // eslint-disable-next-line
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
     try {
-      const url = "http://localhost:5000/api/auth";
-      const { data: res } = axios.post(url, data);
-      const token = localStorage.setItem("token", res.data);
-      if(!token) {
-        navigate("/signin");
-      }navigate('/');
-      window.location = "/";
+      const { email, password } = values;
+
+      const { data} = axios.post('/login', {email,password},config);
+      localStorage.setItem("authToken",data.token);
     } catch (error) {
-      console.log(error)
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
     }
     
   };
@@ -35,17 +41,15 @@ const SignIn = () => {
           <div className='container py-5 pb-4 px-5 signinform border'>
             <div className=" text-center  ">
               <form onSubmit={handleSubmit} >
-                {/* {loading && <LoadingBox></LoadingBox>} */}
-                {/* {error && <MessageBox variant="danger">{error}</MessageBox>} */}
                 <Link to="/"><p className="instalogo fw-bold"><Instegramfont /></p></Link>
-
                 <div className="mb-3 mt-5">
                   <input className="form-control inputs m-auto mt-2" type="email" reaquired placeholder='Mobile Number Or Email' name="email"
-                    onChange={handleChange} value={data.email}></input>
+                    onChange={handleChange}></input>
                   <input className="form-control inputs m-auto mt-2" type="password" reaquired placeholder='Password' name="password"
-                    onChange={handleChange} value={data.password}></input>
+                    onChange={handleChange}></input>
                 </div>
                 <button className="btn btn-primary form-control" >LOG IN</button>
+                {error && <span className="mt-3 text-danger fs-6 fw-bold">{error}</span>}
                 <div className='mt-4 row mx-1'>
                   <hr className='line col mt-2'></hr>
                   <p className='col-3'>OR</p>

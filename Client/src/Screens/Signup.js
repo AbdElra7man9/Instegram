@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Instegramfont from '../Components/SVG/Instegramfont';// eslint-disable-next-line
-import { Link, useNavigate, useEffect } from "react-router-dom";// eslint-disable-next-line
+import Instegramfont from '../Components/SVG/Instegramfont';
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';// eslint-disable-next-line
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import host from '../axiosHost';
+
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ const Signup = () => {
         autoClose: 8000,
         pauseOnHover: true,
         draggable: true,
-        theme: "dark",
+        // theme: "dark",
     };
     const [values, setValues] = useState({
         username: "",
@@ -21,32 +21,25 @@ const Signup = () => {
         password: "",
         fullname: "",
     });
-
-    // useEffect(() => {
-    //     if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-    //         navigate("/");
-    //     }
-    // }, []);
-
+    const [error, setError] = useState("");
     const handleChange = (event) => {
         setValues({ ...values, [event.target.name]: event.target.value });
     };
-
     const handleValidation = () => {
         const { password, fullname, username, email } = values;
         if (!email || !password || !fullname || !username) {
-            toast.error(
-                "Please Fill All Inputes.",
-                toastOptions
-            );
-            return false;
+            return setError("Please Fill All Inputes.");
+            // toast.error(
+            //     "Please Fill All Inputes.",
+            //     toastOptions
+            // );
+            // return false;
         } else if (username.length < 3) {
             toast.error(
                 "Username should be greater than 3 characters.",
                 toastOptions
             );
             return false;
-
         }
         else if (password.length < 8) {
             toast.error(
@@ -66,25 +59,40 @@ const Signup = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const config = {
+            header: {
+                "Content-Type": "application/json"
+            },
+        };
         if (handleValidation()) {
             const { email, username, password, fullname } = values;
-            const { data } = await axios.post(`${host}/api/auth/signup`, {
-                username,
-                email,
-                password,
-                fullname
-            });
+            try {
+                const { data } = await axios.post('/signup', {
+                    username,
+                    email,
+                    password,
+                    fullname
+                },config);
 
-            if (data.status === false) {
-                toast.error(data.msg, toastOptions);
-            }
-            if (data.status === true) {
-                localStorage.setItem(
-                    'hello'
-                    , JSON.stringify(data.user)
-                );
+                if (data.status === false) {
+                    toast.error(data.msg, toastOptions);
+                }
+                localStorage.setItem("authToken", data.token);
                 navigate("/");
+                // if (data.status === true) {
+                //     localStorage.setItem(
+                //         'hello'
+                //         , JSON.stringify(data.user)
+                //     );
+                //     navigate("/");
+                // }
+            } catch (error) {
+                setError(error.response.data.error);
+                setTimeout(() => {
+                    setError("");
+                }, 5000);
             }
+
         }
     };
 
@@ -110,7 +118,9 @@ const Signup = () => {
                         </div>
                         <p className='text-muted privacygtext'>People who use our service may have uploaded your contact information to Instagram. Learn<Link to='/learnmore' className='text-muted fw-bold'> More</Link></p>
                         <p className='text-muted privacygtext'>By signing up, you agree to our Terms ,<Link to='/learnmore' className='text-muted fw-bold'>Privacy Policy </Link> and <Link to='/learnmore' className='text-muted fw-bold'> Cookies Policy .</Link></p>
-                        <button className="btn btn-primary form-control" type='submit'>Sign Up</button>
+                        <button className="btn btn-primary form-control mb-3" type='submit'>Sign Up</button>
+                        {error && <span className="mt-3 text-danger fs-6 fw-bold">{error}</span>}
+
                     </div>
                 </form>
             </div>
