@@ -7,60 +7,20 @@ import axios from 'axios';
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
-    const toastOptions = {
-        position: "bottom-right",
-        autoClose: 8000,
-        pauseOnHover: true,
-        draggable: true,
-        // theme: "dark",
-    };
-    const [values, setValues] = useState({
-        username: "",
-        email: "",
-        password: "",
-        fullname: "",
-    });
+    const [email, setEmail] = useState("");
     const [error, setError] = useState("");
-    const handleChange = (event) => {
-        setValues({ ...values, [event.target.name]: event.target.value });
-    };
+    const [success, setSuccess] = useState("");
     useEffect(() => {
         if (localStorage.getItem("authToken")) {
             navigate("/");
         }
     })
     const handleValidation = () => {
-        const { password, fullname, username, email } = values;
-        if (!email || !password || !fullname || !username) {
-            return setError("Please Fill All Inputes.");
-            // toast.error(
-            //     "Please Fill All Inputes.",
-            //     toastOptions
-            // );
-            // return false;
-        } else if (username.length < 3) {
-            toast.error(
-                "Username should be greater than 3 characters.",
-                toastOptions
-            );
-            return false;
-        }
-        else if (password.length < 8) {
-            toast.error(
-                "Password should be equal or greater than 8 characters.",
-                toastOptions
-            );
-            return false;
-        } else if (email === "") {
-            toast.error("Email is required.", toastOptions);
-            return false;
-        } else if (fullname === "") {
-            toast.error("fullname is required.", toastOptions);
-            return false;
+        if (!email) {
+            return setError("Please add email address.");
         }
         return true;
     };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const config = {
@@ -69,18 +29,15 @@ const ForgotPassword = () => {
             },
         };
         if (handleValidation()) {
-            const { email, username, password, fullname } = values;
             try {
-                const { data } = await axios.post('/signup', {
-                    username,
+                const { data } = await axios.post('/forgotpassword', {
                     email,
-                    password,
-                    fullname
                 }, config);
-                localStorage.setItem("authToken", data.token);
-                navigate("/");
+                setSuccess(data.data);
+                navigate("/sentemail");
             } catch (error) {
                 setError(error.response.data.error);
+                setEmail("");
                 setTimeout(() => {
                     setError("");
                 }, 5000);
@@ -88,7 +45,6 @@ const ForgotPassword = () => {
 
         }
     };
-
     return (
         <div>
             <div className='container pt-5 px-0 signinform border mb-5'>
@@ -99,8 +55,8 @@ const ForgotPassword = () => {
                             <p className='text-muted fs-6 fw-bold'>Trouble Logging In?</p>
                             <p className='text-muted privacygtext'>Enter your email, phone, or username and we'll send you a link to get back into your account.</p>
                             <input className="form-control inputs m-auto mt-5 mb-3" type="email" placeholder='Mobile Number Or Email' name="email"
-                                onChange={(e) => handleChange(e)}></input>
-                            <Link to="/" className="btn btn-primary form-control mb-3"><span className='ms-2'>Send Login Link</span></Link>
+                                onChange={(e) => setEmail(e.target.value)} value={email}></input>
+                            <button className="btn btn-primary form-control mb-3"><span className='ms-2'>Send Login Link</span></button>
                             <Link to='/forgotpassword' className='mb-4 pb-2 text-dark'>Can't Reset Your Password ?</Link><br></br>
                             <div className='mt-4 row mx-1'>
                                 <hr className='line col mt-2'></hr>
@@ -108,7 +64,7 @@ const ForgotPassword = () => {
                                 <hr className='line col mt-2'></hr>
                             </div>
                             <Link to='/signup' className='pb-2 text-dark '>Create New Account</Link><br></br>
-
+                            {success && <span className="success-message">{success}</span>}
                             {error && <span className="mt-3 text-danger fs-6 fw-bold">{error}</span>}
                         </div>
                     </form>
