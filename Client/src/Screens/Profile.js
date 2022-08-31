@@ -10,8 +10,13 @@ const Profile = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  // const [selct,setSelct]=useState(false);
+  // const seletProfilePosts =() => setSelct('<ProfilePoste/>');
+  // const seletTaggedPosts =() => setSelct('<TaggedPosts/>');
+
+  
   return (
-    <div>
+    <div> 
       <Header />
       <div className='container profilepage'>
         <div className='row'>
@@ -55,24 +60,25 @@ const Profile = () => {
         </div>
         <hr className='mt-5'></hr>
         <div className='d-flex justify-content-center profilesnipped'>
-          <Link to="/" className='snippes d-flex mx-4'>
+          <Link to=''  className='snippes d-flex mx-4'>
             <Postsicon />
             <p className='fs-6 ms-2'>Posts</p>
           </Link>
-          <Link to="/" className='snippes d-flex mx-4 savedicon fs-2'>
+          <Link to="" className='snippes d-flex mx-4 savedicon fs-2'>
             <Savebtn />
             <p className='fs-6 ms-2'>Saved</p>
           </Link>
-          <Link to="/" className='snippes d-flex mx-4'>
+          <Link to=''  className='snippes d-flex mx-4'>
             <Tagged />
             <p className='fs-6 ms-2'>Tagged</p>
+            {/* <TaggedPosts /> */}
           </Link>
         </div>
         <div className='text-center'>
           <Profileposts />
           <p className='fs-3'>Share Photos</p>
           <p className='fs-5'>When you share photos, they will appear on your profile.</p>
-          <Link to='/' className='text-primary fw-bold'>Share your first Photo</Link>
+          <Link to='' className='text-primary fw-bold'>Share your first Photo</Link>
         </div>
       </div>
       <Footer />

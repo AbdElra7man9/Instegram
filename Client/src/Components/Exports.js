@@ -13,12 +13,14 @@ export {default as Instegramfont} from './SVG/Instegramfont';
 export {default as Postsicon} from './SVG/Postsicon';
 export {default as Story} from './SVG/Story';
 export {default as Arrowdown} from './SVG/Arrowdown';
+export {default as ImagesIcon} from './SVG/ImagesIcon';
 
 export {default as Addpost} from './Layouts/Addpost';
 export {default as Header} from './Layouts/Header'
 export {default as Footer} from './Layouts/Footer';
 export {default as Posts} from './Layouts/Posts';
 export {default as Profileposts} from './Layouts/Profileposts';
+export {default as TaggedPosts} from './Layouts/TaggedPosts';
 export {default as Stories} from './Layouts/Stories';
 export {default as Suggetions} from './Layouts/Suggetions';
 export {default as Profile} from '../Screens/Profile';
@@ -28,3 +30,4 @@ export {default as Home} from '../Screens/Home';
 export {default as ForgotPassword} from '../Screens/ForgotPassword';
 export {default as EmailSent} from '../Screens/EmailSent';
 export {default as ResetPassword} from '../Screens/ResetPassword';
+export {default as Messages} from '../Screens/Messages';

@@ -71,20 +71,20 @@ const Signup = () => {
         };
         if (handleValidation()) {
             const { email, username, password, fullname } = values;
-            try {
+            try {// eslint-disable-next-line
                 const { data } = await axios.post('/signup', {
                     username,
                     email,
                     password,
                     fullname
                 }, config);
-                localStorage.setItem("authToken", data.token);
+                // localStorage.setItem("authToken", data.token);
                 navigate("/");
             } catch (error) {
-                setError(error.response.data.error);
+                setError(error.response.data.msg);
                 setTimeout(() => {
                     setError("");
-                }, 5000);
+                }, 10000);
             }
 
         }

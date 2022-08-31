@@ -38,12 +38,11 @@ const SignIn = () => {
         localStorage.setItem("authToken", data.token);
         navigate("/");
       } catch (error) {
-        setError(error.response.data.error);
+        setError(error.response.data.msg);
         setTimeout(() => {
           setError("");
-        }, 5000);
+        }, 10000);
       }
-
     }
   };
   return (

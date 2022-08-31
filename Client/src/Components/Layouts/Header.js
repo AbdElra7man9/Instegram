@@ -1,12 +1,21 @@
-import{Instegramfont,Heart,HomeIcon,Message,Story,Addpostbtn,Arrowdown} from '../Exports';
-import { Link,useNavigate } from "react-router-dom";
-import { Dropdown } from "react-bootstrap";
+import { Instegramfont, Heart, HomeIcon, Message, Story, Addpostbtn, Arrowdown, ImagesIcon } from '../Exports';
+import { Link, useNavigate } from "react-router-dom";
+import { Dropdown, Modal } from "react-bootstrap";
+import { useState } from 'react';
 const Header = () => {
   const Navigate = useNavigate();
-  const logout =() => {
+  const logout = () => {
     localStorage.removeItem("authToken");
     Navigate('/signin');
-  } 
+  }
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [showSubModal, setShowSubModal] = useState(false);
+
+  const handleCloseSubModal = () => setShowSubModal(false);
+  const handleShowSubModal = () => { setShowSubModal(true); setShow(false); }
   return (
     <nav className="navbar navbar-light border-bottom fixed-top py-0">
       <div className="container-fluid ">
@@ -22,8 +31,36 @@ const Header = () => {
               placeholder="Searing"></input>
             <div className="mt-2 ms-auto icons d-flex ">
               <Link to="/" className="ms-4"><HomeIcon /></Link>
-              <Link to="/signin" className="ms-4"><Message /></Link>
-              <Link to="/signup" className="ms-4"><Addpostbtn /></Link>
+              <Link to="/messages" className="ms-4"><Message /></Link>
+              <Link to="" variant="" onClick={handleShow} className="ms-4"><Addpostbtn /></Link>
+              <Modal show={show} onHide={handleClose} backdrop="static" scrollable
+                dialogClassName="modal-90w addpostModel" centered >
+                <Modal.Body >
+                  <div className='text-center'>
+                    <Modal.Header closeButton>
+                      <Modal.Title id="example-custom-modal-styling-title" dialogClassName='text-center'>Create new post</Modal.Title>
+                    </Modal.Header>
+                    <div className='my-5 modalHight'>
+                      <ImagesIcon />
+                      <p className='text-dark fs-4 thinfont mt-3'>Drag photos and videos here</p>
+                      <button className='btn btn-primary py-1 mt-2' type='file' variant="" onClick={handleShowSubModal}>Select From Computer</button>
+                      <Modal show={showSubModal} onHide={handleCloseSubModal} backdrop="static" scrollable centered dialogClassName='addpostModel'>
+                        <Modal.Body >
+                          <div className='text-center'>
+                            <p className='text-dark'>Create new post</p><hr></hr>
+                            <div className='my-5 modalHight'>
+                              <ImagesIcon />
+                              {/* <p className='text-dark fs-4 thinfont mt-3'>Drag photos and videos here</p> */}
+                              {/* <button className='btn btn-primary py-1 mt-2' type='file'>Select From Computer</button> */}
+                            </div>
+                          </div>
+                        </Modal.Body>
+                      </Modal>
+                    </div>
+                  </div>
+                </Modal.Body>
+              </Modal>
+
               <Link to="/logout" className="ms-4"><Story /></Link>
               <Link to="/" className="ms-4"><Heart /></Link>
               <div className="ms-3 pt-0">

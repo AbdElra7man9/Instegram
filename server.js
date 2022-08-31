@@ -1,7 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import router from './Routes/UserRegister&Login.js';
-import errorHandler from './middleware/errorHandler.js';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -29,12 +28,5 @@ app.use(cors({
   credentials: true
 }))
 
-
-// Error Handler Middleware
-app.use(errorHandler);
-
-
 app.use(express.json())
-// app.use("/api/auth", router)
-
 app.use('/', router);

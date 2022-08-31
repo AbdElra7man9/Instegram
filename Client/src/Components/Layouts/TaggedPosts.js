@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Profileposts = () => {
+const TaggedPosts = () => {
   return (
     <div className='profilepage'>
       <button className='btn addposbtn'>
@@ -10,4 +10,4 @@ const Profileposts = () => {
   )
 }
 
-export default Profileposts
+export default TaggedPosts
